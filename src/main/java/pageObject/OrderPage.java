@@ -127,8 +127,6 @@ public class OrderPage {
     }
 
     public boolean getConfirmOrder(){
-      String headText = driver.findElement(headingOrderConfirm).getText();
       return driver.findElement(headingOrderConfirm).getText().contains("Заказ оформлен");
-
     }
 }
