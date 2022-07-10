@@ -15,6 +15,7 @@ public class TestGetAnswerOnQuestion {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.manage().window().maximize();
     }
 
     @Test

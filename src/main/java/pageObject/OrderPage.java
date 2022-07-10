@@ -2,6 +2,7 @@ package pageObject;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -47,11 +48,7 @@ public class OrderPage {
 
     //Окно заказа
     private By windowOrder = By.className("Order_Form__17u6u");
-
-    //Заголовок "Заказ оформлен"
-    private By headingOrderConfirmed = By.className("Order_ModalHeader__3FDaJ");
     private WebDriver driver;
-
     public OrderPage (WebDriver driver) {
         this.driver = driver;
     }
@@ -113,7 +110,10 @@ public class OrderPage {
     public void waitForLoadOrderPage(){
         new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(headingOfOrder));
     }
-
+    public WebElement returnOrderLogoPage (){
+        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(headingOfOrder));
+        return driver.findElement(headingOfOrder);
+    }
     public void waitAboutRent(){
         new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(logoAboutRent));
     }
@@ -127,6 +127,8 @@ public class OrderPage {
     }
 
     public boolean getConfirmOrder(){
+      String headText = driver.findElement(headingOrderConfirm).getText();
       return driver.findElement(headingOrderConfirm).getText().contains("Заказ оформлен");
+
     }
 }

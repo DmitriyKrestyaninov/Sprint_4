@@ -17,35 +17,29 @@ public class TestOrder {
 
         driver = new ChromeDriver();
         driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.manage().window().maximize();
     }
     @Test
     public void testOrderScooterClickOnButtonTopPage(){
-
         MainPage mainPage = new MainPage(driver);
         mainPage.waitForLoadHomePage();
         mainPage.clickCookieButton();
         mainPage.clickOrderButtonTopPage();
-
         testOrderScooter(driver,"Дмитрий", "Крестьянинов", "Быстрецкая 20","Сокольники","79105715592","11.07.2022","сутки","black");
     }
-
     @Test
-    public void testOrderScooterClickOnButtonLowerPage() throws InterruptedException{
+    public void testOrderScooterClickOnButtonLowerPage() {
         MainPage mainPage = new MainPage(driver);
-
         mainPage.waitForLoadHomePage();
         mainPage.clickCookieButton();
         mainPage.clickOrderButtonLowerPage();
-
-        testOrderScooter(driver,"Евгений", "Демченко", "Костычева 17","Черкизовская","79105715599","12.07.2022", "двое суток", "grey");
+        testOpenpaigeOrder(driver);
     }
-    @After
+     @After
     public void teardown() {
         driver.quit();
     }
-
    public void testOrderScooter(WebDriver driver, String name, String secondName, String adress,String metroStation, String numberTelephone, String whenToBring,String rentalPeriod, String color){
-
        OrderPage orderPage =  new OrderPage(driver);
        orderPage.waitForLoadOrderPage();
        orderPage.setOrderDetails(name, secondName, adress,metroStation,numberTelephone);
@@ -56,6 +50,10 @@ public class TestOrder {
        orderPage.waitWindowOrder();
        Assert.assertTrue(orderPage.getConfirmOrder());
    }
-
+   public void testOpenpaigeOrder (WebDriver driver){
+       OrderPage orderPage =  new OrderPage(driver);
+       orderPage.waitForLoadOrderPage();
+       Assert.assertTrue(orderPage.returnOrderLogoPage().isDisplayed());
+   }
 }
 
