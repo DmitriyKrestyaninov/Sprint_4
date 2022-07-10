@@ -3,7 +3,7 @@ package pageObject;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-//import org.junit.Assert;
+
 
 public class MainPage {
 
@@ -30,9 +30,11 @@ public class MainPage {
     private By importantAnswer7 = By.id("accordion__panel-6");
     private By importantAnswer8 = By.id("accordion__panel-7");
 
-    // Кнопка "Заказать"
-    private By orderButton = By.className("Button_Button__ra12g");
+    // Кнопка "Заказать" на верхней панели
+    private By orderButtonTopPaige = By.className("Button_Button__ra12g");
 
+    //Кнопка  "заказать" внизу страницы
+    private By orderButtonLowerPage = By.className("Button_Middle__1CSJM");
     //Кнопка "да все привыкли"
     private By cookieButton = By.className("App_CookieButton__3cvqF");
 
@@ -46,9 +48,16 @@ public class MainPage {
     public void waitForLoadHomePage(){
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOfElementLocated(logoOfMainPage));
     }
-    public void  clickOrderButton () {
-        driver.findElement(orderButton).click();
+    public void  clickOrderButtonTopPage () {
+        driver.findElement(orderButtonTopPaige).click();
     }
+    public void clickOrderButtonLowerPage()  {
+        WebElement element = driver.findElement(orderButtonLowerPage);
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
+
+        element.click();
+    }
+
     public String clickQuestionButton1Result(){
         return  getAnswer(importantQuestionButton1,importantAnswer1);
     }
@@ -76,7 +85,7 @@ public class MainPage {
     public String getAnswer(By selectorButton, By selectorQuestion){
         WebElement element = driver.findElement(selectorButton);
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
-        driver.findElement(selectorButton).click();
+        element.click();
         new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOfElementLocated(selectorQuestion));
         return driver.findElement(selectorQuestion).getText();
     }

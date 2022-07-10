@@ -13,13 +13,13 @@ public class TestGetAnswerOnQuestion {
     @Before
     public void startUp() {
         WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.get("https://qa-scooter.praktikum-services.ru/");
     }
 
     @Test
-    public void test(){
-        WebDriver driver = new ChromeDriver();
+    public void testDropDownListButtons(){
 
-        driver.get("https://qa-scooter.praktikum-services.ru/");
 
         MainPage mainPage = new MainPage(driver);
         mainPage.waitForLoadHomePage();
